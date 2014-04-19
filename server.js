@@ -27,6 +27,10 @@ app.get('/cta/bustime/getpredictions', function(req, res) {
 
 	
 	request(options, function (error, response, data) {
+
+	  res.header("Access-Control-Allow-Origin", "*");
+	  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+
 	  if (!error && response.statusCode == 200) {
 	  	var json = parser.toJson(data);
 	    console.log(json);
