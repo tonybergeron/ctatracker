@@ -1,6 +1,7 @@
 var app = require('express').createServer();
 
 var http = require('http');
+var parser = require('xml2json');
 
 app.get('/', function(req, res) {
   res.send("Hello World");
@@ -34,12 +35,13 @@ app.get('/cta/bustime/getpredictions', function(req, res) {
 	  //the whole response has been recieved, so we just print it out here
 	  response.on('end', function () {
 	    console.log(str);
+	    parser.toJson(str);
 	  });
 	}
 
 	http.request(options, callback).end();
 
-}
+});
 
 app.listen(process.env.PORT || 3000, function() {
   console.log("listening on 3000");
