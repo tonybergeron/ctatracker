@@ -2,7 +2,8 @@
   "name": "wallcast-server",
   "version": "0.0.1",
   "dependencies": {
-    "express": "~2.5.9"
+    "express": "~2.5.9",
+    "xml2json": "0.4.x"
   },
   "engines": {
     "node": "0.8.x",
