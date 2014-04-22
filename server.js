@@ -3,6 +3,8 @@ var app = require('express').createServer();
 var request = require('request');
 var parser = require('xml2json');
 
+var config = require('./config');
+
 app.get('/', function(req, res) {
   res.send("Hello World");
 });
@@ -12,14 +14,13 @@ app.get('/', function(req, res) {
 app.get('/bustime/api/:version/:method', function(req, res) {
 
 	var baseUrl = 'http://www.ctabustracker.com/bustime/api';
-	var defaultKey = 'JbbYsQ54N2ar84ALjN2y4sH9d';
 
 	//Cache the query string
 	var queryString = req.query;
 
 	//Handle Key
 	if(req.query['key'] === null || req.query['key'] === undefined) {
-		queryString.key = defaultKey;
+		queryString.key = config.bus.apiKey;
 	}
 
 	var options = {
@@ -52,14 +53,13 @@ app.get('/bustime/api/:version/:method', function(req, res) {
 app.get('/traintime/api/:version/:method', function(req, res) {
 
 	var baseUrl = 'http://lapi.transitchicago.com/api';
-	var defaultKey = '8a277d0d03c54646a9189e55b9f2da05';
 
 	//Cache the query string
 	var queryString = req.query;
 
 	//Handle Key
 	if(req.query['key'] === null || req.query['key'] === undefined) {
-		queryString.key = defaultKey;
+		queryString.key = config.train.apiKey;
 	}
 
 	var options = {
