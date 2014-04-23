@@ -5,8 +5,6 @@ var parser = require('xml2json');
 
 var config = require('./config');
 
-var moment = require('moment-timezone');
-
 //Timezone for Chicago
 var timeZone = '-05:00';
 //var timeZone = '-06:00';

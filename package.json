@@ -4,8 +4,7 @@
   "dependencies": {
     "express": "~2.5.9",
     "xml2json": "0.4.x",
-    "request": "2.34.x",
-    "moment-timezone": "0.0.x"
+    "request": "2.34.x"
   },
   "engines": {
     "node": "0.8.x",
