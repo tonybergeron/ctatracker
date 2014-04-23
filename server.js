@@ -5,6 +5,13 @@ var parser = require('xml2json');
 
 var config = require('./config');
 
+var moment = require('moment-timezone');
+
+//Timezone for Chicago
+var timeZone = '-05:00';
+//var timeZone = '-06:00';
+
+
 app.get('/', function(req, res) {
   res.send("Hello World");
 });
@@ -127,20 +134,30 @@ function translateCTADate(text) {
 		var date = {
 			year: dateText.slice(0,4),
 			month: dateText.slice(4,6),
-			days: dateText.slice(6,8)
+			day: dateText.slice(6,8)
 		};
 
 		//Collect the Time portion
 		var timeTextSplit = timeText.split(":");
 		var time = {
-			hours: timeTextSplit[0],
-			minute: timeTextSplit[1]
+			hour: timeTextSplit[0],
+			minute: timeTextSplit[1],
+			second: '00'
 		};
 
-		//Take all of this and make a date of it, then return the millis
-		var dateObj = new Date(date.year, (date.month - 1), date.days, time.hours, time.minute);
+		//console.log(timeTextSplit);
 
-    	return dateObj.getTime();
+		//If seconds exist
+		if(timeTextSplit.length >= 3) {
+			time.second = timeTextSplit[2];
+		}
+
+		//ISOFormat: YYYY-MM-DDThh:mm:ssTZD (eg 1997-07-16T19:20:30+01:00)
+		var parseString = date.year + '-' + date.month + '-' + date.day + 'T' + time.hour + ':' + time.minute + ':' + time.second + timeZone;
+
+		var dateObj = Date.parse(parseString);
+
+    	return dateObj;
 
 	} else {
 		//Return null
